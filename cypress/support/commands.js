@@ -23,3 +23,6 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add("Validar datos columna",(columData,nameData,infoData)=> {
+    cy.get(columData).find(nameData).should("have.text",infoData)
+})

@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    tools {nodejs "Node"}
+    stages {
+        stage('Cypress Parallel Test Suite') {
+            parallel {
+                stage('Slave 1') {
+                    agent {
+                        label "Agent_1"
+                    }
+                    steps {
+                        git url: 'https://github.com/Ronald-conde/PruebaCypress.git'
+                        bat 'npm install'
+                        bat 'npm update'                       
+                        bat 'npx cypress run --record --key f8fd9eb6-663a-4395-b27a-94a15c8b5346  --parallel'
+                    }
+                }
+                stage('Slave 2') {
+                    agent {
+                        label "Agent_2"
+                    }
+                    steps {
+                        git url: 'https://github.com/Ronald-conde/PruebaCypress.git'
+                        bat 'npm install'
+                        bat 'npm update'                       
+                        bat 'cypress run --record --key f8fd9eb6-663a-4395-b27a-94a15c8b5346  --parallel'
+                    }
+                }
+            }
+        }
+    }
+}
