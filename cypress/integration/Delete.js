@@ -7,5 +7,8 @@ const { deleteDownloadsFolderAfterAll } = require('cypress-delete-downloads-fold
 
 describe('delete downloads folder after all', () => {
     deleteDownloadsFolderAfterAll()
-    it('should work', () => {})
+    it('should work', () => {
+        cy.visit('https://demoqa.com/upload-download')
+        cy.get("#downloadButton").click()
+    })
 })
